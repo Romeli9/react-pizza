@@ -1,17 +1,27 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+
+import AppContext from '../context';
 
 function Sort() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const { sortBy, setSortBy } = useContext(AppContext);
+
   const arraySort = ['популярности', 'цене', 'алфавиту'];
+  const arrayEngSort = ['rating', 'price', 'title'];
 
   const sortName = arraySort[activeIndex];
+  const sortEngName = arrayEngSort[activeIndex];
 
   const onClickSort = (index) => {
     setIsOpen((prev) => !isOpen);
     setActiveIndex(index);
+    setSortBy(arrayEngSort[activeIndex]);
+    console.log('Тут бил сетСортБай');
   };
+
+  console.log('Sort.jsx: ', sortBy);
 
   return (
     <div className="sort">
