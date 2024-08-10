@@ -9,9 +9,9 @@ function Sort({ sortType, onChangeType, order, onChangeOrder }) {
     { name: 'алфавиту', sortProperty: 'title' },
   ];
 
-  const onClickSort = (index) => {
+  const onClickSort = (obj) => {
     setIsOpen((prev) => !isOpen);
-    onChangeType(index);
+    onChangeType(obj);
   };
 
   return (

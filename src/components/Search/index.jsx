@@ -1,9 +1,11 @@
-import React from 'react';
+import { useContext } from 'react';
+
+import { SearchContext } from '../../App';
 
 import styles from './Search.module.scss';
 
-function Search({ searchValue, setSearchValue }) {
-  console.log(styles);
+function Search() {
+  const { searchValue, setSearchValue } = useContext(SearchContext);
 
   return (
     <div className={styles.root}>
@@ -12,9 +14,9 @@ function Search({ searchValue, setSearchValue }) {
         fill="none"
         height="24"
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         viewBox="0 0 24 24"
         width="24"
         xmlns="http://www.w3.org/2000/svg">
