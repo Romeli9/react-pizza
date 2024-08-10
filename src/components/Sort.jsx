@@ -6,8 +6,7 @@ import { setFilter, setOrder } from '../redux/slices/filterSlice';
 function Sort() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const sortType = useSelector((state) => state.filter.sort);
-  const order = useSelector((state) => state.filter.order);
+  const { sort, order } = useSelector((state) => state.filter);
 
   const dispatch = useDispatch();
 
@@ -35,7 +34,7 @@ function Sort() {
           </span>
         )}
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen((prev) => !isOpen)}>{sortType.name}</span>
+        <span onClick={() => setIsOpen((prev) => !isOpen)}>{sort.name}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
@@ -44,7 +43,7 @@ function Sort() {
               <li
                 key={ix}
                 onClick={() => onClickSort(obj)}
-                className={sortType.sortProperty === obj.sortProperty ? 'active' : ''}>
+                className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>
                 {obj.name}
               </li>
             ))}

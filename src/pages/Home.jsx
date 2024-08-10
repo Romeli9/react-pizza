@@ -17,9 +17,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const sortType = useSelector((state) => state.filter.sort);
-  const order = useSelector((state) => state.filter.order);
+  const { categoryId, sort, order } = useSelector((state) => state.filter);
 
   const dispatch = useDispatch(setCategoryId);
 
@@ -34,7 +32,7 @@ function Home() {
         const { data } = await axios.get(
           `https://66b4405e9f9169621ea23974.mockapi.io/items?page=${currentPage}&limit=4&${
             categoryId > 0 ? `category=${categoryId}` : ''
-          }&sortBy=${sortType.sortProperty}&order=${order}&${
+          }&sortBy=${sort.sortProperty}&order=${order}&${
             searchValue ? `search=${searchValue}` : ''
           }`,
         );
@@ -46,7 +44,7 @@ function Home() {
       setIsLoading(false);
     })();
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, order, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, order, searchValue, currentPage]);
 
   const skeletons = [...Array(10)].map((_, ix) => <PizzaSkeleton key={ix} />);
   const items = pizzas.map((obj, ix) => <PizzaBlock key={ix} {...obj} isLoading={isLoading} />);
