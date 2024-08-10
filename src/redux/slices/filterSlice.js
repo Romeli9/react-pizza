@@ -17,8 +17,7 @@ export const filterSlice = createSlice({
       state.categoryId = action.payload;
     },
     setFilter(state, action) {
-      state.sort.name = action.payload.name;
-      state.sort.sortProperty = action.payload.sortProperty;
+      state.sort = action.payload;
     },
     setOrder(state, action) {
       state.order = action.payload;

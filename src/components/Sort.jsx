@@ -1,7 +1,15 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-function Sort({ sortType, onChangeType, order, onChangeOrder }) {
+import { setFilter, setOrder } from '../redux/slices/filterSlice';
+
+function Sort() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const sortType = useSelector((state) => state.filter.sort);
+  const order = useSelector((state) => state.filter.order);
+
+  const dispatch = useDispatch();
 
   const arraySort = [
     { name: 'популярности', sortProperty: 'rating' },
@@ -11,18 +19,18 @@ function Sort({ sortType, onChangeType, order, onChangeOrder }) {
 
   const onClickSort = (obj) => {
     setIsOpen((prev) => !isOpen);
-    onChangeType(obj);
+    dispatch(setFilter(obj));
   };
 
   return (
     <div className="sort">
       <div className="sort__label">
         {order === 'asc' ? (
-          <span className="sort__label-order" onClick={() => onChangeOrder('desc')}>
+          <span className="sort__label-order" onClick={() => dispatch(setOrder('desc'))}>
             ↑
           </span>
         ) : (
-          <span className="sort__label-order" onClick={() => onChangeOrder('asc')}>
+          <span className="sort__label-order" onClick={() => dispatch(setOrder('asc'))}>
             ↓
           </span>
         )}
