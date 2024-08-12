@@ -23,7 +23,7 @@ function Home() {
 
   const { categoryId, currentPage, sort, order } = useSelector((state) => state.filter);
 
-  const dispatch = useDispatch(setCategoryId);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 

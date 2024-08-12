@@ -8,7 +8,7 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
 
   const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
 
-  const addedCount = cartItem ? cartItem.cound : 0;
+  const addedCount = cartItem ? cartItem.count : 0;
 
   // const addedCount = useSelector(
   //   (state) => state.cart.items.find((obj) => obj.id === id)?.count || 0,
@@ -26,7 +26,7 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
       price,
       imageUrl,
       type: typeNames[activeTypeIndex],
-      size: activeSizeIndex,
+      size: sizes[activeSizeIndex],
     };
     dispatch(addItem(item));
   };
