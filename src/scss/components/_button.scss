@@ -24,6 +24,10 @@
     transition: all $duration ease-in-out;
   }
 
+  &:disabled {
+    background-color: darken($orange, 5%);
+  }
+
   &:hover {
     background-color: darken($orange, 8%);
   }

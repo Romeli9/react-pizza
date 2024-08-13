@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setFilter, setOrder } from '../redux/slices/filterSlice';
+import { setFilter, setOrder, selectFilter } from '../redux/slices/filterSlice';
 
 export const arraySort = [
   { name: 'популярности', sortProperty: 'rating' },
@@ -12,7 +12,7 @@ export const arraySort = [
 function Sort() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { sort, order } = useSelector((state) => state.filter);
+  const { sort, order } = useSelector(selectFilter);
 
   const sortRef = useRef();
 
@@ -22,7 +22,6 @@ function Sort() {
     const handleClickOutside = (event) => {
       if (!event.composedPath().includes(sortRef.current)) {
         setIsOpen(false);
-        console.log('123');
       }
     };
 

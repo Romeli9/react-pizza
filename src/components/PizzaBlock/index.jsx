@@ -1,18 +1,13 @@
 import { useState } from 'react';
-import ContentLoader from 'react-content-loader';
 import { useSelector, useDispatch } from 'react-redux';
-import { addItem } from '../../redux/slices/cartSlice';
+import { addItem, selectCardItemById } from '../../redux/slices/cartSlice';
 
 function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
   const dispatch = useDispatch();
 
-  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const cartItem = useSelector(selectCardItemById(id));
 
   const addedCount = cartItem ? cartItem.count : 0;
-
-  // const addedCount = useSelector(
-  //   (state) => state.cart.items.find((obj) => obj.id === id)?.count || 0,
-  // );
 
   const [activeSizeIndex, setActiveSizeIndex] = useState(0);
   const [activeTypeIndex, setActiveTypeIndex] = useState(0);
@@ -56,9 +51,6 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
                 {size}
               </li>
             ))}
-            {/* <li className="active">25 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li> */}
           </ul>
         </div>
         <div className="pizza-block__bottom">
