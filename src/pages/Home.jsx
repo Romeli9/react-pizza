@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import Categories from '../components/Categories';
 import Sort, { arraySort } from '../components/Sort';
@@ -82,7 +82,7 @@ function Home() {
   }, [categoryId, sort.sortProperty, order, currentPage]);
 
   const skeletons = [...Array(10)].map((_, ix) => <PizzaSkeleton key={ix} />);
-  const pizzas = items.map((obj, ix) => <PizzaBlock key={ix} {...obj} />);
+  const pizzas = items.map((obj, ix) => <PizzaBlock {...obj} />);
 
   return (
     <div className="container">
