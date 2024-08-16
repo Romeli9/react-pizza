@@ -1,13 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function FullPizza() {
+type pizzaType = {
+  imageUrl: string;
+  title: string;
+  price: number;
+};
+
+const FullPizza: FC = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
 
-  const [pizza, setPizza] = useState();
+  const [pizza, setPizza] = useState<pizzaType>();
 
   useEffect(() => {
     async function fetchPizza() {
@@ -31,6 +37,6 @@ function FullPizza() {
       <h4>{pizza.price} ₽</h4>
     </div>
   );
-}
+};
 
 export default FullPizza;
