@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 
 type CategoriesProps = {
   categoryId: number;
-  onClickCategory: any;
+  onClickCategory: (ix: number) => void;
 };
 
 const Categories: FC<CategoriesProps> = ({ categoryId, onClickCategory }) => {

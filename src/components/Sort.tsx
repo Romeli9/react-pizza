@@ -24,8 +24,17 @@ function Sort() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    // const handleClickOutside = (event: Event) => {
+    //   console.log(event);
+    //   if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
+    //     setIsOpen(false);
+    //   }
+    // };
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const current = sortRef.current;
+      const path = e.composedPath();
+      if (current && !path.includes(current)) {
         setIsOpen(false);
       }
     };

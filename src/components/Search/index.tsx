@@ -1,4 +1,4 @@
-import { useRef, useCallback, useState } from 'react';
+import { useRef, useCallback, useState, ChangeEvent } from 'react';
 //@ts-ignore
 import debounce from 'lodash.debounce';
 import { useDispatch } from 'react-redux';
@@ -26,7 +26,7 @@ function Search() {
     [],
   );
 
-  const onChangeInput = (event: any) => {
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
