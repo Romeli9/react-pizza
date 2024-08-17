@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import qs from 'qs';
 import { useNavigate, Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ import {
 } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
 
-function Home() {
+const Home: FC = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
@@ -27,16 +27,17 @@ function Home() {
 
   const navigate = useNavigate();
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (page) => {
+  const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         currentPage,
         categoryId,
@@ -82,18 +83,18 @@ function Home() {
   }, [categoryId, sort.sortProperty, order, currentPage]);
 
   const skeletons = [...Array(10)].map((_, ix) => <PizzaSkeleton key={ix} />);
-  const pizzas = items.map((obj, ix) => <PizzaBlock {...obj} />);
+  const pizzas = items.map((obj: any, ix: number) => <PizzaBlock {...obj} />);
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories categoryId={categoryId} onClickCategory={(id) => onClickCategory(id)} />
+        <Categories categoryId={categoryId} onClickCategory={(id: number) => onClickCategory(id)} />
         <Sort />
       </div>
       {status === 'error' ? (
         <div className="content__error-info">
           <h2>
-            Произошла ошибка <icon>😕</icon>
+            Произошла ошибка <span>😕</span>
           </h2>
           <p>К сожалению, не удалось получить пиццы. Попробуйте повторить попытку позже.</p>
         </div>
@@ -107,6 +108,6 @@ function Home() {
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
-}
+};
 
 export default Home;

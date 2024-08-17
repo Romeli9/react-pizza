@@ -1,12 +1,22 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
 
-function CartItem({ id, title, price, count, imageUrl, size, type }) {
+type CartItemProps = {
+  id: string;
+  title: string;
+  price: number;
+  count: number;
+  imageUrl: string;
+  size: number;
+  type: string;
+};
+
+const CartItem: FC<CartItemProps> = ({ id, title, price, count, imageUrl, size, type }) => {
   const dispatch = useDispatch();
 
-  const minusButtonRef = useRef();
+  const minusButtonRef = useRef<HTMLButtonElement>(null);
 
   const isDisabled = () => {
     return count === 1;
@@ -104,6 +114,6 @@ function CartItem({ id, title, price, count, imageUrl, size, type }) {
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

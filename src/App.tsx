@@ -4,7 +4,7 @@ import './scss/app.scss';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
-import FullPizza from './pages/FullPizza.tsx';
+import FullPizza from './pages/FullPizza';
 import NotFound from './pages/NotFound';
 
 function App() {
