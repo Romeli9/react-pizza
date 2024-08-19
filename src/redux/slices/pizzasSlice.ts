@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
-import { CartItem } from './cartSlice';
+import { SortPropertyEnum } from './filterSlice';
 
 type SortType = {
   name: string;
-  sortProperty: string;
+  sortProperty: SortPropertyEnum;
 };
 
 type FetchArgs = {
@@ -15,6 +15,26 @@ type FetchArgs = {
   order: string;
   searchValue: string;
 };
+
+type Pizza = {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+};
+
+export enum Status {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
+interface PizzaSliceState {
+  items: Pizza[];
+  status: Status;
+}
 
 export const fetchPizzas = createAsyncThunk<Pizza[], FetchArgs>(
   'pizzas/fetchPizzasStatus',
@@ -30,44 +50,30 @@ export const fetchPizzas = createAsyncThunk<Pizza[], FetchArgs>(
   },
 );
 
-type Pizza = {
-  id: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-  types: number[];
-};
-
-interface PizzaSliceState {
-  items: Pizza[];
-  status: 'loading' | 'success' | 'error';
-}
-
 const initialState: PizzaSliceState = {
   items: [],
-  status: 'loading', // loading | success | error
+  status: Status.LOADING, // loading | success | error
 };
 
 export const pizzasSlice = createSlice({
   name: 'pizzas',
   initialState,
   reducers: {
-    setItems(state, action) {
+    setItems(state, action: PayloadAction<Pizza[]>) {
       state.items = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchPizzas.pending, (state, action) => {
-      state.status = 'loading';
+    builder.addCase(fetchPizzas.pending, (state) => {
+      state.status = Status.LOADING;
       state.items = [];
     });
-    builder.addCase(fetchPizzas.fulfilled, (state, action) => {
-      state.status = 'success';
+    builder.addCase(fetchPizzas.fulfilled, (state, action: PayloadAction<Pizza[]>) => {
+      state.status = Status.SUCCESS;
       state.items = action.payload;
     });
-    builder.addCase(fetchPizzas.rejected, (state, action) => {
-      state.status = 'error';
+    builder.addCase(fetchPizzas.rejected, (state) => {
+      state.status = Status.ERROR;
       state.items = [];
     });
   },

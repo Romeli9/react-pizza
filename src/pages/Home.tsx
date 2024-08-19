@@ -1,7 +1,7 @@
 import { useEffect, useRef, FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import qs from 'qs';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Categories from '../components/Categories';
 import Sort, { arraySort } from '../components/Sort';
@@ -13,8 +13,10 @@ import {
   setCurrentPage,
   setFilters,
   selectFilter,
+  SetFiltersType,
 } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzas } from '../redux/slices/pizzasSlice';
+import { useAppDispatch } from '../redux/store';
 
 const Home: FC = () => {
   const isSearch = useRef(false);
@@ -23,7 +25,7 @@ const Home: FC = () => {
   const { categoryId, currentPage, sort, order, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzas);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -37,7 +39,6 @@ const Home: FC = () => {
 
   const getPizzas = async () => {
     dispatch(
-      //@ts-ignore
       fetchPizzas({
         currentPage,
         categoryId,
@@ -51,9 +52,18 @@ const Home: FC = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-
       const sort = arraySort.find((obj) => obj.sortProperty === params.sortProperty);
-      dispatch(setFilters({ ...params, sort }));
+
+      if (sort) {
+        const filters: SetFiltersType = {
+          categoryId: Number(params.categoryId),
+          currentPage: Number(params.currentPage),
+          sort: sort,
+          order: params.order as 'asc' | 'desc',
+        };
+        dispatch(setFilters(filters));
+      }
+
       getPizzas();
       isSearch.current = true;
     }
@@ -83,7 +93,7 @@ const Home: FC = () => {
   }, [categoryId, sort.sortProperty, order, currentPage]);
 
   const skeletons = [...Array(10)].map((_, ix) => <PizzaSkeleton key={ix} />);
-  const pizzas = items.map((obj: any, ix: number) => <PizzaBlock {...obj} />);
+  const pizzas = items.map((obj: any, ix: number) => <PizzaBlock key={ix} {...obj} />);
 
   return (
     <div className="container">

@@ -1,17 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setFilter, setOrder, selectFilter } from '../redux/slices/filterSlice';
+import {
+  setFilter,
+  setOrder,
+  selectFilter,
+  SortPropertyEnum,
+  SortType,
+} from '../redux/slices/filterSlice';
 
-type ArrayItem = {
-  name: string;
-  sortProperty: string;
-};
-
-export const arraySort: ArrayItem[] = [
-  { name: 'популярности', sortProperty: 'rating' },
-  { name: 'цене', sortProperty: 'price' },
-  { name: 'алфавиту', sortProperty: 'title' },
+export const arraySort: SortType[] = [
+  { name: 'популярности', sortProperty: SortPropertyEnum.RATING },
+  { name: 'цене', sortProperty: SortPropertyEnum.PRICE },
+  { name: 'алфавиту', sortProperty: SortPropertyEnum.TITLE },
 ];
 
 function Sort() {
@@ -46,8 +47,8 @@ function Sort() {
     };
   }, []);
 
-  const onClickSort = (obj: ArrayItem) => {
-    setIsOpen((prev) => !isOpen);
+  const onClickSort = (obj: SortType) => {
+    setIsOpen((prev) => !prev);
     dispatch(setFilter(obj));
   };
 
