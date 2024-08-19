@@ -8,7 +8,8 @@
   min-width: 100px;
   text-align: center;
   cursor: pointer;
-  transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
+  transition: background-color $duration ease-in-out, border-color $duration ease-in-out,
+    opacity $duration ease-in-out;
   border: 1px solid transparent;
   @include noselect();
 
@@ -24,17 +25,20 @@
     transition: all $duration ease-in-out;
   }
 
-  &:disabled {
-    background-color: darken($orange, 5%);
-  }
-
   &:hover {
-    background-color: darken($orange, 8%);
+    @media (hover: hover) {
+      background-color: darken($orange, 8%);
+    }
   }
 
   &:active {
     background-color: darken($orange, 12%);
     transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
   }
 
   &--circle {
@@ -72,16 +76,17 @@
     }
 
     &:hover {
-      background-color: $orange;
+      @media (hover: hover) {
+        background-color: $orange;
+        &,
+        span {
+          color: #fff;
+        }
 
-      &,
-      span {
-        color: #fff;
-      }
-
-      svg {
-        path {
-          fill: #fff;
+        svg {
+          path {
+            fill: #fff;
+          }
         }
       }
     }
@@ -110,9 +115,11 @@
     }
 
     &:hover {
-      i {
-        background-color: #fff;
-        color: $orange;
+      @media (hover: hover) {
+        i {
+          background-color: #fff;
+          color: $orange;
+        }
       }
     }
 

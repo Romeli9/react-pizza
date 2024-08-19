@@ -165,13 +165,15 @@ body {
     }
 
     &:hover {
-      svg {
-        path {
-          stroke: darken($color: #b6b6b6, $amount: 50);
+      @media (hover: hover) {
+        svg {
+          path {
+            stroke: darken($color: #b6b6b6, $amount: 50);
+          }
         }
-      }
-      span {
-        color: darken($color: #b6b6b6, $amount: 50);
+        span {
+          color: darken($color: #b6b6b6, $amount: 50);
+        }
       }
     }
   }

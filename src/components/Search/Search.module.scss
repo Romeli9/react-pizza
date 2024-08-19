@@ -37,6 +37,8 @@
   cursor: pointer;
 
   &:hover {
-    opacity: 0.8;
+    @media (hover: hover) {
+      opacity: 0.8;
+    }
   }
 }

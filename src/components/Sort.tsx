@@ -1,13 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect, useRef, FC, memo } from 'react';
+import { useDispatch } from 'react-redux';
 
-import {
-  setFilter,
-  setOrder,
-  selectFilter,
-  SortPropertyEnum,
-  SortType,
-} from '../redux/slices/filterSlice';
+import { setFilter, setOrder, SortPropertyEnum, SortType } from '../redux/slices/filterSlice';
 
 export const arraySort: SortType[] = [
   { name: 'популярности', sortProperty: SortPropertyEnum.RATING },
@@ -15,23 +9,19 @@ export const arraySort: SortType[] = [
   { name: 'алфавиту', sortProperty: SortPropertyEnum.TITLE },
 ];
 
-function Sort() {
-  const [isOpen, setIsOpen] = useState(false);
+type SortProps = {
+  sort: SortType;
+  order: 'asc' | 'desc';
+};
 
-  const { sort, order } = useSelector(selectFilter);
+const Sort: FC<SortProps> = memo(({ sort, order }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const sortRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // const handleClickOutside = (event: Event) => {
-    //   console.log(event);
-    //   if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
-    //     setIsOpen(false);
-    //   }
-    // };
-
     const handleClickOutside = (e: MouseEvent) => {
       const current = sortRef.current;
       const path = e.composedPath();
@@ -83,6 +73,6 @@ function Sort() {
       )}
     </div>
   );
-}
+});
 
 export default Sort;

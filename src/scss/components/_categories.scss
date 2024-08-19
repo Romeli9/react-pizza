@@ -15,7 +15,9 @@
       @include noselect();
 
       &:hover {
-        background-color: darken(#f9f9f9, 2%);
+        @media (hover: hover) {
+          background-color: darken(#f9f9f9, 2%);
+        }
       }
 
       &:active {
