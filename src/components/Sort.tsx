@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, FC, memo } from 'react';
 import { useDispatch } from 'react-redux';
-
-import { setFilter, setOrder, SortPropertyEnum, SortType } from '../redux/slices/filterSlice';
+import { SortPropertyEnum, SortType } from '../redux/filter/types';
+import { setFilter, setOrder } from '../redux/filter/slice';
 
 export const arraySort: SortType[] = [
   { name: 'популярности', sortProperty: SortPropertyEnum.RATING },

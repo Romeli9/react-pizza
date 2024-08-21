@@ -1,31 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { WritableDraft } from 'immer';
-import { RootState } from '../store';
 
-export type CartItemType = {
-  id: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  count: number;
-  type: string;
-  size: number;
-};
+import { CartItemType, CartSliceState } from './types';
+import { getCartFromLocalStorage } from '../../utils/getCartFromLocalStorage';
+import { calcSum } from '../../utils/calcTotalPrice';
 
-interface CartSliceState {
-  totalPrice: number;
-  items: CartItemType[];
-}
+const { items, totalPrice } = getCartFromLocalStorage();
+
+console.log(totalPrice);
 
 const initialState: CartSliceState = {
-  items: [],
-  totalPrice: 0,
-};
-
-const calcSum = (state: WritableDraft<CartSliceState>) => {
-  state.totalPrice = state.items.reduce((sum, obj) => {
-    return obj.price * obj.count + sum;
-  }, 0);
+  items,
+  totalPrice,
 };
 
 export const cartSlice = createSlice({
@@ -44,7 +29,7 @@ export const cartSlice = createSlice({
         });
       }
 
-      calcSum(state);
+      state.totalPrice = calcSum(state.items);
     },
     minusItem(state, action: PayloadAction<string>) {
       const findItem = state.items.find((obj) => obj.id === action.payload);
@@ -52,12 +37,12 @@ export const cartSlice = createSlice({
         findItem.count--;
       }
 
-      calcSum(state);
+      state.totalPrice = calcSum(state.items);
     },
     removeItem(state, action: PayloadAction<string>) {
       state.items = state.items.filter((obj) => obj.id !== action.payload);
 
-      calcSum(state);
+      state.totalPrice = calcSum(state.items);
     },
 
     clearItems(state) {
@@ -66,10 +51,6 @@ export const cartSlice = createSlice({
     },
   },
 });
-
-export const selectCart = (state: RootState) => state.cart;
-export const selectCardItemById = (id: string) => (state: RootState) =>
-  state.cart.items.find((obj) => obj.id === id);
 
 export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions;
 
