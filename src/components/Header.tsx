@@ -27,7 +27,7 @@ export const Header: FC = () => {
   return (
     <div className="header">
       <div className="container">
-        <Link to="">
+        <Link to="/react-pizza">
           <div className="header__logo">
             <img height={38} width="38" src={logoSvg} alt="Pizza logo" />
             <div>
@@ -39,7 +39,7 @@ export const Header: FC = () => {
         <Search />
         {pathname !== '/cart' && (
           <div className="header__cart">
-            <Link to="/cart" className="button button--cart">
+            <Link to="react-pizza/cart" className="button button--cart">
               <span>{totalPrice} ₽</span>
               <div className="button__delimiter"></div>
               <svg
