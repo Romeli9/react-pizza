@@ -3,11 +3,7 @@ import { useSelector } from 'react-redux';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-import Categories from '../components/Categories';
-import Sort, { arraySort } from '../components/Sort';
-import PizzaBlock from '../components/PizzaBlock';
-import PizzaSkeleton from '../components/PizzaBlock/Skeleton';
-import Pagination from '../components/Pagination';
+import { Pagination, Skeleton, PizzaBlock, Sort, arraySort, Categories } from '../components';
 
 import { useAppDispatch } from '../redux/store';
 import { selectFilter } from '../redux/filter/selectors';
@@ -90,7 +86,7 @@ const Home: FC = () => {
     isMounted.current = true;
   }, [categoryId, sort.sortProperty, order, currentPage]);
 
-  const skeletons = [...Array(10)].map((_, ix) => <PizzaSkeleton key={ix} />);
+  const skeletons = [...Array(10)].map((_, ix) => <Skeleton key={ix} />);
   const pizzas = items.map((obj: any, ix: number) => <PizzaBlock key={ix} {...obj} />);
 
   return (

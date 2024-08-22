@@ -14,7 +14,7 @@ type SortProps = {
   order: 'asc' | 'desc';
 };
 
-const Sort: FC<SortProps> = memo(({ sort, order }) => {
+export const Sort: FC<SortProps> = memo(({ sort, order }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const sortRef = useRef<HTMLDivElement>(null);
@@ -74,5 +74,3 @@ const Sort: FC<SortProps> = memo(({ sort, order }) => {
     </div>
   );
 });
-
-export default Sort;

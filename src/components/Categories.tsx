@@ -5,7 +5,7 @@ type CategoriesProps = {
   onClickCategory: (ix: number) => void;
 };
 
-const Categories: FC<CategoriesProps> = memo(({ categoryId, onClickCategory }) => {
+export const Categories: FC<CategoriesProps> = memo(({ categoryId, onClickCategory }) => {
   const categoriesList = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
@@ -23,5 +23,3 @@ const Categories: FC<CategoriesProps> = memo(({ categoryId, onClickCategory }) =
     </div>
   );
 });
-
-export default Categories;

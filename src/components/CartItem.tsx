@@ -14,7 +14,7 @@ type CartItemProps = {
   type: string;
 };
 
-const CartItem: FC<CartItemProps> = ({ id, title, price, count, imageUrl, size, type }) => {
+export const CartItem: FC<CartItemProps> = ({ id, title, price, count, imageUrl, size, type }) => {
   const dispatch = useDispatch();
 
   const minusButtonRef = useRef<HTMLButtonElement>(null);
@@ -116,5 +116,3 @@ const CartItem: FC<CartItemProps> = ({ id, title, price, count, imageUrl, size, 
     </div>
   );
 };
-
-export default CartItem;

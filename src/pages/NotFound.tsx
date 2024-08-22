@@ -1,7 +1,7 @@
-import Info from '../components/NotFoundBlock';
+import { NotFoundBlock } from '../components';
 
 function NotFound() {
-  return <Info />;
+  return <NotFoundBlock />;
 }
 
 export default NotFound;
