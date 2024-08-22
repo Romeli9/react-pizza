@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/NotFound.56e8840d.chunk.js","mappings":"8JAMA,QAJA,WACE,OAAOA,EAAAA,EAAAA,KAACC,EAAAA,GAAa,GACvB,C","sources":["pages/NotFound.tsx"],"sourcesContent":["import { NotFoundBlock } from '../components';\r\n\r\nfunction NotFound() {\r\n  return <NotFoundBlock />;\r\n}\r\n\r\nexport default NotFound;\r\n"],"names":["_jsx","NotFoundBlock"],"sourceRoot":""}
